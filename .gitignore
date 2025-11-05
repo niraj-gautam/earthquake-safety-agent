@@ -1,0 +1,34 @@
+
+.codegpt
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+# Logs
+logs/
+*.log
+
+# Build output
+/build/
+.terraform
+*.tfvars
+start-worker.sh
+ssh
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="agent-avatar">🤖</div>
+            <div class="agent-info">
+                <h2>Earthquake Safety Agent</h2>
+                <div class="status">● Online</div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be inserted here -->
+        </div>
+
+        <div class="chat-input-area">
+            <div class="input-wrapper">
+                <textarea 
+                    id="messageInput" 
+                    placeholder="Type your message..." 
+                    rows="1"
+                ></textarea>
+                <button id="sendButton" aria-label="Send message">
+                    ➤
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="scripts/script.js"></script>
+</body>
+</html>
