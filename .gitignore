@@ -26,7 +26,7 @@ logs/
 *.log
 
 # Build output
-/build/
+build/
 .terraform
 *.tfvars
 start-worker.sh

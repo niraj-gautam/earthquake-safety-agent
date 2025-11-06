@@ -22,7 +22,6 @@ server.registerTool('get_quakes',
             from: z.string().describe('Start date/time in ISO 8601 format'),
             to: z.string().describe('End date/time in ISO 8601 format'),
             min_magnitude: z.number().describe('Minimum magnitude').optional(),
-            region: z.string().describe('Region name').optional(),
             lat: z.number().describe('Latitude').optional(),
             lon: z.number().describe('Longitude').optional(),
             radius_km: z.number().describe('Radius in kilometers').optional(),
@@ -46,12 +45,12 @@ server.registerTool('get_quakes',
         }),
     },
 },
-async ({ from, to, min_magnitude, region, lat, lon, radius_km }) => {
+async ({ from, to, min_magnitude, lat, lon, radius_km }) => {
     const startTime = Date.now();
     let error: Error | undefined;
     
     try {
-        const earthquakesData = await getQuakes(from, to, min_magnitude, region, lat, lon, radius_km);
+        const earthquakesData = await getQuakes(from, to, min_magnitude, lat, lon, radius_km);
         
         // Add metadata to response
         const responseWithMetadata = {
@@ -60,11 +59,12 @@ async ({ from, to, min_magnitude, region, lat, lon, radius_km }) => {
                 source: 'USGS Earthquake API',
                 dataTimestamp: new Date().toISOString(),
                 count: earthquakesData.earthquakes.length,
+                apiVersion: '1.0.0',
             },
         };
 
         const latency = Date.now() - startTime;
-        logger.logToolCall('get_quakes', { from, to, min_magnitude, region, lat, lon, radius_km }, responseWithMetadata, latency);
+        logger.logToolCall('get_quakes', { from, to, min_magnitude, lat, lon, radius_km }, responseWithMetadata, latency);
 
         return {
             content: [
@@ -78,7 +78,7 @@ async ({ from, to, min_magnitude, region, lat, lon, radius_km }) => {
     } catch (err) {
         error = err as Error;
         const latency = Date.now() - startTime;
-        logger.logToolCall('get_quakes', { from, to, min_magnitude, region, lat, lon, radius_km }, null, latency, error);
+        logger.logToolCall('get_quakes', { from, to, min_magnitude, lat, lon, radius_km }, null, latency, error);
         throw error;
     }
 

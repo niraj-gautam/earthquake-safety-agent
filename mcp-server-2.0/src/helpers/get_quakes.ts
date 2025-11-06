@@ -116,7 +116,6 @@ function parseAndValidateDate(dateString: string, paramName: string): Date {
  * @param from - Start date/time in ISO 8601 format
  * @param to - End date/time in ISO 8601 format
  * @param min_magnitude - Minimum magnitude (optional)
- * @param region - Region name (optional, used for filtering by place name)
  * @param lat - Latitude for distance calculation (optional)
  * @param lon - Longitude for distance calculation (optional)
  * @param radius_km - Radius in kilometers for geographic filtering (optional, requires lat/lon)
@@ -126,14 +125,13 @@ export async function getQuakes(
     from: string,
     to: string,
     min_magnitude?: number,
-    region?: string,
     lat?: number,
     lon?: number,
     radius_km?: number
 ): Promise<{ earthquakes: EarthquakeData[] }> {
     try {
         // Check cache first
-        const cacheParams = { from, to, min_magnitude, region, lat, lon, radius_km };
+        const cacheParams = { from, to, min_magnitude, lat, lon, radius_km };
         const cachedData = earthquakeCache.get<{ earthquakes: EarthquakeData[] }>(cacheParams);
         
         if (cachedData !== null) {
@@ -238,13 +236,6 @@ export async function getQuakes(
             
             return earthquake;
         });
-        
-        if (region) {
-            const regionLower = region.toLowerCase();
-            earthquakes = earthquakes.filter(eq => 
-                eq.place.toLowerCase().includes(regionLower)
-            );
-        }
         
         // Sort by time descending (most recent first)
         earthquakes.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());

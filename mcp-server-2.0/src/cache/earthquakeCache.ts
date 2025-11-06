@@ -8,7 +8,6 @@ export interface CacheParams {
     from: string;
     to: string;
     min_magnitude?: number;
-    region?: string;
     lat?: number;
     lon?: number;
     radius_km?: number;
@@ -56,7 +55,6 @@ export class EarthquakeCache {
             from: params.from || null,
             to: params.to || null,
             min_magnitude: params.min_magnitude || null,
-            region: params.region?.toLowerCase() || null,
             lat: params.lat ? parseFloat(params.lat.toString()).toFixed(4) : null,
             lon: params.lon ? parseFloat(params.lon.toString()).toFixed(4) : null,
             radius_km: params.radius_km || null,
