@@ -32,3 +32,6 @@ build/
 start-worker.sh
 ssh
 
+#Python
+__pycache__/
+venv/

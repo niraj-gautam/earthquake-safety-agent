@@ -14,6 +14,14 @@ import cors from "cors";
 const server = new McpServer({
     name: "Earthquake MCP Server",
     version: "1.0.0",
+    capabilities: {
+        tools: [
+            {
+                name: 'get_quakes',
+                description: 'Get earthquake data from the USGS API within a time range. Returns recent earthquakes with magnitude, depth, location, and distance from a user location.',
+            },
+        ],
+    },
 });
 
 server.registerTool('get_quakes',
