@@ -11,6 +11,12 @@ export interface Config {
         port: number;
         nodeEnv: string;
     };
+    security: {
+        enableAuth: boolean;
+        apiKey: string;
+        enableCors: boolean;
+        allowedOrigins: string[];
+    };
     cache: {
         defaultTTL: number;
         historicalTTL: number;
@@ -54,6 +60,12 @@ export const config: Config = {
         port: getEnvNumber('PORT', 3000),
         nodeEnv: process.env.NODE_ENV || 'development',
     },
+    security: {
+        enableAuth: getEnvBoolean('ENABLE_AUTH', true),
+        apiKey: process.env.API_KEY || '',
+        enableCors: getEnvBoolean('ENABLE_CORS', true),
+        allowedOrigins: (process.env.ALLOWED_ORIGINS || '').split(','),
+    },
     cache: {
         // TTL in seconds for recent/current data (default 5 minutes)
         defaultTTL: getEnvNumber('CACHE_DEFAULT_TTL', 300),
@@ -68,7 +80,7 @@ export const config: Config = {
         // Maximum number of retries for failed requests
         maxRetries: getEnvNumber('USGS_MAX_RETRIES', 3),
         // USGS API base URL
-        baseUrl: process.env.USGS_API_BASE_URL || 'https://earthquake.usgs.gov/fdsnws/event/1/query',
+        baseUrl: process.env.USGS_API_BASE_URL || '',
     },
     logging: {
         // Log level: debug, info, warn, error

@@ -7,6 +7,8 @@ import { config } from "./config/config.js";
 import { logger, requestLogger, errorHandler } from "./middleware/logger.js";
 import healthRouter from "./routes/health.js";
 import metricsRouter from "./routes/metrics.js";
+import { apiKeyAuth } from "./middleware/auth.js";
+import cors from "cors";
 
 // create the MCP server
 const server = new McpServer({
@@ -87,6 +89,22 @@ async ({ from, to, min_magnitude, lat, lon, radius_km }) => {
 
 const app = express();
 
+
+// CORS Configuration (before other middleware)
+if (config.security.enableCors) {
+    const corsOptions = {
+        origin: config.security.allowedOrigins[0] === '' 
+            ? '' 
+            : config.security.allowedOrigins,
+        methods: ['POST', 'GET'],
+        allowedHeaders: ['Content-Type', 'Accept', 'X-API-Key'],
+        credentials: true,
+    };
+    app.use(cors(corsOptions));
+    logger.info('CORS enabled', { origins: config.security.allowedOrigins });
+}
+
+
 // Middleware
 app.use(express.json());
 app.use(requestLogger);
@@ -96,6 +114,8 @@ app.use('/health', healthRouter);
 app.use('/metrics', metricsRouter);
 
 // MCP endpoint
+app.use('/mcp', apiKeyAuth);
+
 app.post('/mcp', async (req, res) => {
     // Create a new transport for each request to prevent request ID collisions
     const transport = new StreamableHTTPServerTransport({
