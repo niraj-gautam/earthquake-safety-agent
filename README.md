@@ -185,7 +185,7 @@ npm run preview
 
 ### Frontend (Port 5173 or 4173)
 
-- Web interface for earthquake monitoring and safety information
+- Web interface for the agent
 
 ## 💻 Development
 
@@ -205,12 +205,78 @@ cd agent/frontend
 npm run dev       # Run development server with hot-reload
 npm run build     # Build for production
 npm run preview   # Preview production build
-npm run lint      # Run ESLint
 ```
 
 ### Agent Development
 
 The agent automatically reloads when changes are detected in development mode.
+
+## 🧪 Testing
+
+This project includes comprehensive unit tests for all three components (MCP Server, Agent, and Frontend).
+
+### Quick Test
+
+Run all tests with a single command:
+
+```bash
+cd tests
+npm test
+```
+
+This will run:
+- **MCP Server Tests** (8 tests) - Jest/TypeScript
+- **Agent Tests** (7 tests) - pytest/Python  
+- **Frontend Tests** (21 tests) - Vitest/TypeScript
+
+**Total: 36 tests**
+
+### First Time Setup
+
+Before running tests for the first time, install dependencies:
+
+```bash
+cd tests
+./setup.sh
+```
+
+Or manually:
+
+```bash
+# Install Node.js test dependencies
+cd tests
+npm install
+
+# Install Python test dependencies
+cd ..
+source agent/venv/bin/activate
+pip install -r tests/requirements.txt
+```
+
+### Individual Test Suites
+
+Run specific test suites:
+
+```bash
+cd tests
+
+# MCP Server tests only
+npm run test:mcp
+
+# Agent tests only
+npm run test:agent
+
+# Frontend tests only
+npm run test:frontend
+```
+
+### Test Coverage
+
+- **MCP Server**: Configuration, cache operations, TTL calculation
+- **Agent**: Helper functions, configuration, tool setup
+- **Frontend**: Storage service, API service, session management
+
+For detailed testing instructions, see [`tests/README.md`](./tests/README.md).
 
 ## 🔒 Security Notes
 

@@ -1,0 +1,25 @@
+{
+  "name": "earthquake-tests",
+  "version": "1.0.0",
+  "description": "Tests for Earthquake Safety Agent",
+  "type": "module",
+  "scripts": {
+    "test:mcp": "jest --config jest.config.js",
+    "test:agent": "cd .. && python -m pytest tests/test_agent.py -v",
+    "test:frontend": "cd frontend && npm test",
+    "test": "npm run test:mcp && npm run test:agent && npm run test:frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
+

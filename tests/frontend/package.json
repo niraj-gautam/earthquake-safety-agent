@@ -1,0 +1,21 @@
+{
+  "name": "frontend-tests",
+  "version": "1.0.0",
+  "description": "Frontend tests for Earthquake Safety Agent",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@vitejs/plugin-react": "^4.2.1",
+    "jsdom": "^23.0.1",
+    "vitest": "^1.1.0"
+  }
+}
+
