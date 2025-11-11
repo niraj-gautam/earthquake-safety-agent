@@ -4,16 +4,6 @@
 An AI agent that provides real-time earthquake information and safety 
 guidance using Google Gemini and USGS data, built with MCP architecture.
 
-## 📋 Table of Contents
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Environment Setup](#environment-setup)
-- [Running the Project](#running-the-project)
-- [API Endpoints](#api-endpoints)
-- [Development](#development)
-
 ## 🏗️ Architecture
 
 This project consists of three main components:
@@ -29,26 +19,6 @@ This project consists of three main components:
 - **Python** (v3.10 or higher)
 - **Google ADK** (Agent Development Kit)
 - **Git**
-
-## 📁 Project Structure
-
-```
-earthquake-safety-agent/
-├── mcp-server/          # MCP server for earthquake data
-│   ├── src/
-│   ├── build/
-│   ├── package.json
-│   └── example.env
-├── agent/               # Python AI agent
-│   ├── earthquake_agent/
-│   │   └── agent.py
-│   ├── frontend/        # React frontend
-│   │   ├── src/
-│   │   ├── package.json
-│   │   └── vite.config.ts
-│   └── venv/           # Python virtual environment
-└── README.md
-```
 
 ## 🔧 Installation
 
@@ -98,35 +68,8 @@ cd mcp-server
 cp example.env .env
 ```
 
-Edit the `.env` file with your configuration:
+**Edit the `.env` file with your configuration**
 
-```env
-# Server Configuration
-PORT=3000
-NODE_ENV=development
-
-# Security Configuration
-ENABLE_AUTH=true
-# Generate a strong API key (use: openssl rand -hex 32)
-API_KEY=your-super-secret-api-key-here-change-this
-
-# CORS Configuration
-ENABLE_CORS=true
-ALLOWED_ORIGINS=*
-
-# Cache Configuration
-CACHE_DEFAULT_TTL=300
-CACHE_HISTORICAL_TTL=3600
-CACHE_CHECK_PERIOD=120
-
-# USGS API Configuration
-USGS_API_TIMEOUT=10000
-USGS_MAX_RETRIES=3
-
-# Logging
-LOG_LEVEL=info
-LOG_REQUESTS=true
-```
 
 **Important:** Generate a secure API key for the `API_KEY` field. You can use:
 ```bash
@@ -135,24 +78,18 @@ openssl rand -hex 32
 
 ### AI Agent Environment
 
-Create a `.env` file in the `agent/` directory:
+Create a `.env` file in the `agent/earthquake_agent/` directory (use `env.example` as reference):
 
 ```bash
-cd agent
-touch .env
+cd agent/earthquake_agent
+cp env.example .env
 ```
 
-Add the following configuration:
+**Edit the `.env` file with your configuration:**
 
-```env
-# MCP Server Configuration
-# IMPORTANT: Use the SAME API_KEY that you set in the MCP server's .env file
-SERVER_API_KEY=your-super-secret-api-key-here-change-this
-SERVER_API_URL=http://localhost:3000
-
-# Google Gemini API (if required)
-GOOGLE_API_KEY=your-google-api-key
-```
+- `GOOGLE_API_KEY` - Your Google Gemini API key
+- `SERVER_API_KEY` - Use the SAME API_KEY that you set in the MCP server's `.env` file
+- `SERVER_API_URL` - URL of the MCP server (default: `http://localhost:3000`)
 
 **⚠️ Critical:** The `SERVER_API_KEY` in the agent's `.env` file **MUST match** the `API_KEY` in the MCP server's `.env` file. The agent uses this key to authenticate with the MCP server.
 
